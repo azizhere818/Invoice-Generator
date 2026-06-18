@@ -24,9 +24,9 @@ A Python automation script that generates professional PDF invoices from a saved
 
 **price_list.csv**
 \`\`\`
-name,price
-Website Design,5000
-Logo Design,1500
+name,price/n
+Website Design,5000/n
+Logo Design,1500/n
 SEO Setup,2000
 \`\`\`
 
