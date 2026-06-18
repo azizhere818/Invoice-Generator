@@ -6,6 +6,7 @@ A Python automation script that generates professional PDF invoices from a saved
 - Reads item prices from a price list CSV (set up once per client)
 - Takes the order details (item names and quantities) as user input
 - Automatically looks up the correct price for each ordered item from the price list
+- Prints item not available if non-existent item is entered
 - Generates a clean, professional PDF invoice with itemized costs and grand total
 - Emails the invoice directly to the client with the PDF attached
 
