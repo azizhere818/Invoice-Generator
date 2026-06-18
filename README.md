@@ -23,10 +23,10 @@ A Python automation script that generates professional PDF invoices from a saved
 ## Example price list
 
 **price_list.csv**
-name,price
-Website Design,5000
-Logo Design,1500
-SEO Setup,2000
+- name,price
+- Website Design,5000
+- Logo Design,1500
+- SEO Setup,2000
 
 ## How to use
 1. Install required libraries: `pip install reportlab yagmail`
