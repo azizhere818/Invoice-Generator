@@ -20,6 +20,11 @@ price_file = os.path.join(base_path, 'price.csv')
 sales_log_file = os.path.join(base_path, 'sales_log.csv')
 
 #============================================================
+# PLACEHOLDERS & CONFIGURATION
+#============================================================
+COMPANY_NAME = "YOUR COMPANY NAME"
+
+#============================================================
 # LOAD PRICE LIST (runs once, when the program starts)
 #============================================================
 prices = {}
@@ -38,12 +43,11 @@ except FileNotFoundError:
 
 
 #============================================================
-# CORE LOGIC FUNCTIONS (same logic as your terminal version,
-# just no longer using input() — the GUI buttons supply the values)
+# CORE LOGIC FUNCTIONS
 #============================================================
 
 def generate_invoice(client_name, client_email, items, invoice_number, discount):
-    """Create the PDF invoice and return its filename. Identical to your terminal version."""
+    """Create the PDF invoice and return its filename."""
     invoices_folder = os.path.join(base_path, 'Invoices')
     os.makedirs(invoices_folder, exist_ok=True)
     filename = os.path.join(invoices_folder, f"Invoice_{invoice_number}_{client_name}.pdf")
@@ -51,7 +55,7 @@ def generate_invoice(client_name, client_email, items, invoice_number, discount)
     width, height = A4
 
     c.setFont("Helvetica-Bold", 24)
-    c.drawString(50, height - 50, "MAK ONLINE")
+    c.drawString(50, height - 50, COMPANY_NAME)
 
     c.setFont('Helvetica', 12)
     c.drawString(50, height - 100, f"Invoice Number: {invoice_number}")
@@ -130,9 +134,6 @@ def save_stock():
 
 #============================================================
 # APP STATE
-# (In the terminal version this was just the 'items' list reset
-#  each loop. Here it lives at the top level so every button's
-#  function can see and update the same cart.)
 #============================================================
 current_items = []
 
@@ -150,7 +151,7 @@ FONT_BOLD = ("Segoe UI", 11, "bold")
 FONT_HEADER = ("Segoe UI", 18, "bold")
 
 root = tk.Tk()
-root.title("MAK ONLINE — Billing")
+root.title(f"{COMPANY_NAME} — Billing")
 root.geometry("480x700")
 root.configure(bg=BG_COLOR)
 root.resizable(False, False)
@@ -158,7 +159,7 @@ root.resizable(False, False)
 # ---- Header ----
 header = tk.Frame(root, bg=ACCENT_COLOR, height=70)
 header.pack(fill="x")
-tk.Label(header, text="MAK ONLINE", font=FONT_HEADER, bg=ACCENT_COLOR, fg="white").pack(pady=18)
+tk.Label(header, text=COMPANY_NAME, font=FONT_HEADER, bg=ACCENT_COLOR, fg="white").pack(pady=18)
 
 # ---- Customer details section ----
 details_frame = tk.Frame(root, bg=BG_COLOR, padx=20, pady=15)
@@ -186,8 +187,6 @@ qty_entry.grid(row=0, column=3, padx=10)
 
 
 def add_item():
-    """Mirrors the logic inside your terminal input_details() loop,
-    but runs once per button click instead of looping with input()."""
     barcode = barcode_entry.get().strip()
 
     if not barcode:
@@ -230,13 +229,10 @@ add_button.grid(row=0, column=4, padx=10)
 
 
 def focus_qty(event):
-    """When Enter is pressed in the barcode box, jump to the quantity box."""
     qty_entry.focus()
 
 
 def add_item_on_enter(event):
-    """When Enter is pressed in the quantity box, add the item and
-    jump back to the barcode box so the next scan can happen immediately."""
     add_item()
     barcode_entry.focus()
 
@@ -271,8 +267,6 @@ grandtotal_label.grid(row=2, column=0, columnspan=2, sticky="w", pady=(10, 0))
 
 
 def update_subtotal():
-    """Recalculates subtotal and grand total live, using the same math as
-    your terminal version's subtotal/grandtotal calculation."""
     subtotal = sum(qty * price for name, qty, price in current_items)
     subtotal_label.config(text=f"Subtotal: Rs.{subtotal:.2f}")
     update_grandtotal()
@@ -290,7 +284,7 @@ def update_grandtotal(*args):
     grandtotal_label.config(text=f"Grand Total: Rs.{grandtotal:.2f}")
 
 
-discount_entry.bind("<KeyRelease>", update_grandtotal)  # live update as discount is typed
+discount_entry.bind("<KeyRelease>", update_grandtotal)
 
 # ---- Delivery / management buttons ----
 delivery_frame = tk.Frame(root, bg=BG_COLOR, padx=20, pady=15)
@@ -298,7 +292,6 @@ delivery_frame.pack(fill="x")
 
 
 def validate_before_finalizing():
-    """Same checks your terminal version does before generating an invoice."""
     if not current_items:
         messagebox.showinfo("No items", "Add at least one item before finalizing.")
         return None
@@ -323,8 +316,6 @@ def validate_before_finalizing():
 
 
 def finish_and_reset(client_name, invoice_number):
-    """Logs the sale, clears the cart, and saves stock — same as the end
-    of each loop in your terminal version."""
     sales_log(client_name, invoice_number, current_items)
     save_stock()
     current_items.clear()
@@ -354,8 +345,6 @@ def handle_email():
         return
     client_name, invoice_number, discount = result
 
-    # Small popup window to collect email + sender credentials,
-    # instead of input() prompts in the terminal.
     email_window = tk.Toplevel(root)
     email_window.title("Send via Email")
     email_window.geometry("320x220")
@@ -363,10 +352,12 @@ def handle_email():
 
     tk.Label(email_window, text="Client Email", bg=BG_COLOR, font=FONT_NORMAL).pack(anchor="w")
     client_email_entry = tk.Entry(email_window, font=FONT_NORMAL, width=30)
+    client_email_entry.insert(0, "client@example.com")  # Placeholder text
     client_email_entry.pack(pady=(0, 10))
 
     tk.Label(email_window, text="Sender Email", bg=BG_COLOR, font=FONT_NORMAL).pack(anchor="w")
     sender_email_entry = tk.Entry(email_window, font=FONT_NORMAL, width=30)
+    sender_email_entry.insert(0, "your_email@gmail.com")  # Placeholder text
     sender_email_entry.pack(pady=(0, 10))
 
     tk.Label(email_window, text="Sender App Password", bg=BG_COLOR, font=FONT_NORMAL).pack(anchor="w")
@@ -398,9 +389,6 @@ def handle_email():
 
 
 def open_inventory_manager():
-    """Opens a separate window for adding new items, editing prices,
-    or adjusting stock — kept apart from the main billing screen
-    so day-to-day billing stays fast and uncluttered."""
     inv_window = tk.Toplevel(root)
     inv_window.title("Manage Inventory")
     inv_window.geometry("420x500")
@@ -430,8 +418,6 @@ def open_inventory_manager():
     status_label.pack(anchor="w", pady=(0, 10))
 
     def load_existing_item(event=None):
-        """If the barcode already exists, auto-fill the fields with
-        its current details — so editing is easy without retyping everything."""
         barcode = inv_barcode_entry.get().strip()
         if not barcode:
             return
@@ -450,8 +436,6 @@ def open_inventory_manager():
     inv_barcode_entry.bind("<FocusOut>", load_existing_item)
 
     def save_item():
-        """Adds a brand-new item, or overwrites an existing one's
-        name/price/stock — then immediately saves to price.csv."""
         barcode = inv_barcode_entry.get().strip()
         name = inv_name_entry.get().strip()
 
