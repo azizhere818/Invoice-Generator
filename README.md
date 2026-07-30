@@ -1,41 +1,147 @@
-# Invoice Generator
+# Billing and Inventory Management System
 
-A Python automation script that generates professional PDF invoices from a saved price list, then emails them automatically to the client.
+A desktop billing and inventory management application built using **Python** and **Tkinter**. The system allows users to manage inventory, generate professional PDF invoices, email invoices to customers, and maintain sales records through an easy-to-use graphical interface.
 
-## What it does
-- Reads item prices from a price list CSV (set up once per client)
-- Takes the order details (item names and quantities) as user input
-- Automatically looks up the correct price for each ordered item from the price list
-- Prints item not available if non-existent item is entered
-- Generates a clean, professional PDF invoice with itemized costs and grand total
-- Emails the invoice directly to the client with the PDF attached
+---
 
-## How it works
-1. Maintain a `price_list.csv` with your products/services and their prices
-2. Run the script and enter the item name and quantity for each item in the order when prompted
-3. The script automatically looks up the price for each item from the price list
-4. It calculates the total, generates the invoice as a PDF, and emails it to the client
+## Features
 
-## Libraries used
-- reportlab — PDF generation
-- yagmail — sending emails
-- csv — reading the price list
+### Billing
 
-## Example price list
+- Generate professional PDF invoices
+- Automatic subtotal and grand total calculation
+- Discount support
+- Print invoices
+- Email invoices directly to customers
+- Automatic invoice numbering
 
-**price_list.csv**
-- name,price
-- Website Design,5000
-- Logo Design,1500
-- SEO Setup,2000
+### Inventory Management
 
-## How to use
-1. Install required libraries: `pip install reportlab yagmail`
-2. Set up your `price_list.csv` with item names and prices
-3. Run the script
-4. Enter client details, then enter item names and quantities for the order (type "done" when finished)
-5. Enter your email and app password when prompted
-6. Invoice is generated and emailed automatically
+- Barcode-based product lookup
+- Add new products
+- Edit existing products
+- Update product prices
+- Update stock quantities
+- Automatic stock deduction after each sale
 
-## Why this is useful
-Freelancers and small businesses often spend time manually creating invoices and re-typing prices for every order. This tool automates the PDF creation and email delivery, and removes the risk of typing the wrong price by looking it up automatically from a saved price list.
+### Sales Management
+
+- Record every completed sale
+- Maintain sales history in CSV format
+- Automatic sales logging
+
+### User Interface
+
+- Desktop GUI built using Tkinter
+- Live cart updates
+- Real-time subtotal calculation
+- Inventory management window
+- Input validation and error handling
+
+---
+
+## Technologies Used
+
+- Python
+- Tkinter
+- ReportLab
+- Yagmail
+- CSV
+- OS
+- Datetime
+
+---
+
+## Project Structure
+
+```
+billing-and-inventory-management/
+│
+├── main.py
+├── README.md
+├── requirements.txt
+├── price.csv
+├── sales_log.csv
+├── Invoices/
+└── Screenshots/
+```
+
+---
+
+## How It Works
+
+1. Load inventory from `price.csv`.
+2. Enter customer information.
+3. Scan or enter a product barcode.
+4. Specify the quantity.
+5. Items are added to the shopping cart.
+6. Stock is automatically updated.
+7. Apply an optional discount.
+8. Generate a PDF invoice.
+9. Print or email the invoice.
+10. Record the sale in `sales_log.csv`.
+
+---
+
+## Setup
+
+1. Clone the repository.
+
+2. Install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Configure your Gmail App Password if you want to use the email feature.
+
+4. Make sure `price.csv` exists in the project directory.
+
+5. Run the application:
+
+```bash
+python main.py
+```
+
+---
+
+## Screenshots
+
+Add screenshots showing:
+
+- Main Billing Window
+- Inventory Management Window
+- Generated Invoice
+- Email Sent Confirmation
+
+---
+
+## My Role
+
+- Designed the billing workflow and inventory management logic.
+- Implemented barcode-based product lookup.
+- Developed PDF invoice generation.
+- Integrated email automation.
+- Implemented inventory updates and sales logging.
+- Designed the application workflow and user experience.
+- AI-assisted tools were used to accelerate development of parts of the graphical interface and improve productivity.
+
+---
+
+## Future Improvements
+
+- MySQL database integration
+- User authentication
+- Customer management
+- Product categories
+- Sales dashboard
+- Barcode scanner support
+- Receipt printer integration
+- GST/VAT calculations
+- Excel report generation
+
+---
+
+## License
+
+This project was created for learning and portfolio purposes.
