@@ -89,17 +89,6 @@ python main.py
 
 ---
 
-## Screenshots
-
-Add screenshots showing:
-
-- Main Billing Window
-- Inventory Management Window
-- Generated Invoice
-- Email Sent Confirmation
-
----
-
 ## My Role
 
 - Designed the billing workflow and inventory management logic.
