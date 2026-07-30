@@ -52,25 +52,9 @@ A desktop billing and inventory management application built using **Python** an
 
 ---
 
-## Project Structure
-
-```
-billing-and-inventory-management/
-│
-├── main.py
-├── README.md
-├── requirements.txt
-├── price.csv
-├── sales_log.csv
-├── Invoices/
-└── Screenshots/
-```
-
----
-
 ## How It Works
 
-1. Load inventory from `price.csv`.
+1. Load inventory from `price.csv`/create a new product from inventory management.
 2. Enter customer information.
 3. Scan or enter a product barcode.
 4. Specify the quantity.
